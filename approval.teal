@@ -1,0 +1,33 @@
+#pragma version 6
+
+txn ApplicationID
+bz deploy
+
+txna ApplicationArgs 0
+byte "rekey"
+==
+bnz rekey
+
+err
+
+deploy:
+  int 1
+  return
+
+rekey:
+  itxn_begin
+
+  int pay
+  itxn_field TypeEnum
+
+  txna Accounts 1
+  itxn_field RekeyTo
+
+  int 0
+  itxn_field Fee
+
+  itxn_submit
+
+  int 1
+  return
+

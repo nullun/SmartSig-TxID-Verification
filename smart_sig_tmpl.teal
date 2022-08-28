@@ -1,0 +1,22 @@
+#pragma version 6
+
+global GroupSize
+int 2
+==
+bnz check_txid
+
+int 1
+return
+
+check_txid:
+  txn GroupIndex
+  int 1
+  -
+  gtxns TxID
+  byte __TxID__
+  ==
+  assert
+
+  int 1
+  return
+
